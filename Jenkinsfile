@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image '3.9.8-sapmachine-11'
+            image '4.0.0'
         }
     }
 
