@@ -1,14 +1,18 @@
 pipeline {
-    agent {
-        docker {
-            image '4.0.0'
-        }
-    }
-
+    agent any
+    
     stages {
         stage('Build') {
             steps {
-                sh 'mvn clean install -X'
+                script {
+                    // Pull the Maven Docker image
+                    docker.image('maven:3.8.4').pull()
+                    
+                    // Run Maven commands
+                    docker.image('maven:3.8.4').inside {
+                        sh 'mvn clean install'
+                    }
+                }
             }
         }
     }
